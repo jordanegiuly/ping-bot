@@ -1,0 +1,13 @@
+{
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+        "coorpacademy/core",
+        "coorpacademy/es20XX"
+    ],
+    "plugins": [
+        "standard"
+    ]
+}
