@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = (libs, config) => {
     const router = require('express').Router();
     const googlecalendar = require('./googlecalendar')(libs.googleapi, config.googleapi);

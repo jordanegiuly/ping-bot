@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = () => {
     const credentials = require('../.auth/googleapi.json');
     return {
