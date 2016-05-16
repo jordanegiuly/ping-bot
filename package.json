@@ -22,6 +22,10 @@
     "url": "https://github.com/jordanegiuly/ping-bot/issues"
   },
   "homepage": "https://github.com/jordanegiuly/ping-bot",
+  "engines": {
+    "node": "6.1.0",
+    "npm": "3.8.6"
+  },
   "dependencies": {
     "bluebird": "^3.3.5",
     "body-parser": "^1.15.1",
