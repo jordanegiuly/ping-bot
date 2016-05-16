@@ -1,0 +1,15 @@
+{
+    "router": {
+        "googleapi": {
+            "authUrl": {
+                "scope": [
+                    "email",
+                    "https://www.googleapis.com/auth/calendar.readonly"
+                ],
+                "access_type": "offline"
+            },
+            "tokenDir": "./.credentials/",
+            "credentials": {}
+        }
+    }
+}

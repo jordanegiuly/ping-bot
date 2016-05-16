@@ -4,7 +4,7 @@
   "description": "ping bot",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "nodemon index.js",
     "test": "npm lint",
     "eslint_init": "eslint --init",
     "lint": "eslint ."
@@ -23,8 +23,13 @@
   },
   "homepage": "https://github.com/jordanegiuly/ping-bot",
   "dependencies": {
+    "bluebird": "^3.3.5",
     "body-parser": "^1.15.1",
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "google-auth-library": "^0.9.8",
+    "googleapis": "^6.1.0",
+    "lodash": "^4.12.0",
+    "nodemon": "^1.9.2"
   },
   "devDependencies": {
     "eslint": "^2.9.0",
