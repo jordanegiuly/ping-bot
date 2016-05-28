@@ -3,11 +3,13 @@
 module.exports = (libs, config) => {
     const router = require('express').Router();
     const googlecalendar = require('./googlecalendar')(libs.googleapi, config.googleapi);
+    const slack = require('./slack')();
 
     router.get('/', (req, res) => {
         res.send('Hello world!');
     });
     router.use('/googlecalendar', googlecalendar);
+    router.use('/slack', slack);
     return router;
 };
 
