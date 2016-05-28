@@ -8,7 +8,7 @@ module.exports = () => {
         const slack_response = req.body;
         console.log(slack_response.token);
         request.post(slack_response.response_url,
-            {form: 'OK'}, (err, resp, body) => {
+            {form: {text: 'OK'}}, (err, resp, body) => {
                 console.log('err', err);
                 console.log('resp', resp.statusCode);
                 console.log('body', body);
