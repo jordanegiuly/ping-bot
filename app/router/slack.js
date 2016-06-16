@@ -1,6 +1,7 @@
 'use strict';
 
 const request = require('request');
+const Regex = require('regex');
 
 module.exports = () => {
     const slackRouter = require('express').Router();
@@ -17,18 +18,28 @@ module.exports = () => {
 
     slackRouter.post('/ping', (req, res) => {
         const body = req.body;
-        console.log('body', body);
         if (body.token === process.env.SLACK_TOKEN) {
-            // todo set content-type to application/json
-            res.status(200).json({
-                response_type: 'in_channel', // for virality
-                text: body.text + ' has not authorized /ping yet.',
-                attachments: [
-                    {
-                        text: 'Send him this link: https://bot-ping.herokuapp.com/'
-                    }
-                ]
-            });
+            const teamId = body.team_id;
+            const userToPing = body.text;
+            if (isValid(userToPing)) {
+                if (hasAuthorized({teamId, userToPing})) {
+                    res.status(200).json({
+                        text: userToPing + ' is available.' // TODO
+                    });
+                } else {
+                    res.status(200).json({
+                        response_type: 'in_channel', // for virality
+                        text: userToPing + ' has not authorized /ping yet.',
+                        attachments: [
+                            {
+                                text: 'Send him this link: https://bot-ping.herokuapp.com/' + teamId + '/' + userToPing
+                            }
+                        ]
+                    });
+                }
+            } else {
+                res.status(400).send('Invalid request.');
+            }
         }
         else {
             res.status(401).send('Unauthorized');
@@ -55,3 +66,26 @@ function exchangeCodeForToken(code, cb) {
         }
     });
 }
+
+function isValid(text) {
+    const validRegex = new Regex(/\A@[\S]*\z/);
+    return validRegex.test(text);
+}
+
+// TODO
+function hasAuthorized({teamId, userToPing}) {
+    return false;
+}
+
+// {
+//     token: 'jJJ2hkWe0rmi7uIK6e3dAtJK',
+//     team_id: 'T0LRN99TM',
+//     team_domain: 'les-affreux',
+//     channel_id: 'D0TDD2NF2',
+//     channel_name: 'directmessage',
+//     user_id: 'U0LRR2V26',
+//     user_name: 'jordane',
+//     command: '/ping',
+//     text: 'nicho',
+//     response_url: 'https://hooks.slack.com/commands/T0LRN99TM/51646707250/ZmTdIzORebzlsfZB8ji2QL2a'
+// }
