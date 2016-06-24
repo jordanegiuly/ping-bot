@@ -8,16 +8,19 @@ module.exports = (googleApi, config) => {
         next();
     });
 
-    googleCalendarRouter.get('/authorize', (req, res) => {
-        const authUrl = googleApi.auth.url(req.client, config.authUrl);
+    googleCalendarRouter.get('/authorize/:slackId', (req, res) => {
+        const options = config.authUrl;
+        options.state = req.params.slackId;
+        const authUrl = googleApi.auth.url(req.client, options);
         res.redirect(authUrl);
     });
 
     googleCalendarRouter.get('/callback', (req, res) => {
         const code = req.query.code;
+        const slackId = req.query.state;
         googleApi.auth.getNewToken(req.client, code)
         .then(userToken => {
-            return googleApi.auth.saveToken(userToken, config.tokenDir);
+            return googleApi.auth.saveToken(userToken, slackId);
         })
         .then(userToken => {
             res.redirect(`ping/${userToken.user.id}`);
@@ -27,8 +30,8 @@ module.exports = (googleApi, config) => {
         });
     });
 
-    googleCalendarRouter.get('/ping/:id', (req, res) => {
-        googleApi.auth.getToken(req.params.id, config.tokenDir)
+    googleCalendarRouter.get('/ping/:slackId', (req, res) => {
+        googleApi.auth.getToken(req.params.slackId)
         .then(userToken => {
             req.client.credentials = JSON.parse(userToken).token;
             googleApi.calendar.ping(req.client)
@@ -51,7 +54,7 @@ module.exports = (googleApi, config) => {
         })
         .catch(err => {
             console.log(err);
-            res.redirect('/googlecalendar/authorize');
+            res.redirect('/');
         });
     });
     return googleCalendarRouter;

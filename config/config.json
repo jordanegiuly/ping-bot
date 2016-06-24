@@ -8,7 +8,6 @@
                 ],
                 "access_type": "offline"
             },
-            "tokenDir": "./.credentials/",
             "credentials": {}
         }
     }

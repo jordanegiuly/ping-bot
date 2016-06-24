@@ -1,14 +1,12 @@
 'use strict';
 
-const fs = require('fs');
-// const _ = require('lodash');
 const google = require('googleapis');
 const googleAuth = require('google-auth-library');
 const googlePlus = google.plus('v1');
 const calendar = google.calendar('v3');
 const promise = require('bluebird');
+const database = require('./database')();
 
-promise.promisifyAll(fs);
 promise.promisifyAll(googlePlus.people);
 promise.promisifyAll(calendar.events);
 
@@ -44,30 +42,12 @@ module.exports = () => {
         });
     }
 
-    function saveToken({user, token}, tokenDir) {
-        try {
-            fs.mkdirSync(tokenDir);
-        } catch (err) {
-            if (err.code !== 'EEXIST') {
-                throw err;
-            }
-        }
-        fs.writeFile(tokenPath(tokenDir, user.id), JSON.stringify({user, token}, null, 4));
-        return {user, token};
+    function saveToken({user, token}, slackId) {
+        return database.save({user, token}, slackId);
     }
 
-    function getToken(userId, tokenDir) {
-        return fs.readFileAsync(tokenPath(tokenDir, userId))
-        .then(userToken => {
-            return userToken;
-        })
-        .catch(err => {
-            throw err;
-        });
-    }
-
-    function tokenPath(tokenDir, userId) {
-        return `${tokenDir}${userId}.json`;
+    function getToken(slackId) {
+        return database.getToken(slackId);
     }
 
     function ping(client) {

@@ -2,5 +2,6 @@
 
 module.exports = () => {
     const googleapi = require('./googleapi')();
-    return {googleapi};
+    const slackApi = require('./slackapi')();
+    return {googleapi, slackApi};
 };
