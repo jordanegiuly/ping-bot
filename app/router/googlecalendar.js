@@ -23,7 +23,7 @@ module.exports = (googleApi, config) => {
             return googleApi.auth.saveToken(userToken, slackId);
         })
         .then(userToken => {
-            res.redirect(`ping/${userToken.user.id}`);
+            res.redirect('/');
         })
         .catch(err => {
             console.log(err);
@@ -33,7 +33,8 @@ module.exports = (googleApi, config) => {
     googleCalendarRouter.get('/ping/:slackId', (req, res) => {
         googleApi.auth.getToken(req.params.slackId)
         .then(userToken => {
-            req.client.credentials = JSON.parse(userToken).token;
+            console.log('ping', req.params.slackId, userToken);
+            req.client.credentials = userToken.token;
             googleApi.calendar.ping(req.client)
             .then(ping => {
                 let response = '';

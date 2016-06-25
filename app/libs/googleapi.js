@@ -43,6 +43,7 @@ module.exports = () => {
     }
 
     function saveToken({user, token}, slackId) {
+        console.log('saveToken', slackId, user, token);
         return database.save({user, token}, slackId);
     }
 

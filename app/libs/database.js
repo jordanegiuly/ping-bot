@@ -13,6 +13,7 @@ module.exports = () => {
     function save({user, token}, slackId) {
         return new Promise((resolve, reject) => {
             _.set(databases, slackId.split(':'), {user, token});
+            console.log('databases - save', databases);
             resolve({user, token});
         });
     }
