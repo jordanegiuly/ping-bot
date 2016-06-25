@@ -25,7 +25,7 @@ module.exports = (slackApi, config) => {
                 slackApi.hasAuthorized(slackId)
                 .then(hasAuthorized => {
                     if (hasAuthorized) {
-                        res.redirect('googlecalendar/ping/' + slackId);
+                        res.redirect('/googlecalendar/ping/' + slackId);
                     } else {
                         res.status(200).json({
                             response_type: 'in_channel', // for virality
