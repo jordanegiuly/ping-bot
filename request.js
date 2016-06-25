@@ -1,10 +1,10 @@
 const request = require('request');
 
-// request.post('http://localhost:3000/slack/ping', {form: { foo: 'bar'}}, (err, res, body) => {
-//     console.log('err', err);
-//     console.log('res', res.statusCode);
-//     console.log('body', body);
-// });
+request.post('http://localhost:3000/slack/ping', {form: { foo: 'bar'}}, (err, res, body) => {
+    console.log('err', err);
+    console.log('res', res.statusCode);
+    console.log('body', body);
+});
 
 
 // const database = require('./app/libs/database.js')();
@@ -13,10 +13,6 @@ const request = require('request');
 // .then(data => {
 //     console.log('data', data);
 // })
-
-const reg = /^@[\S]*$/g;
-const str = '@jordane';
-console.log(!!str.match(reg));
 
 // const slackApi = require('./app/libs/slackapi.js')();
 

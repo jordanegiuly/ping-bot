@@ -43,7 +43,7 @@ module.exports = () => {
     }
 
     function saveToken({user, token}, slackId) {
-        console.log('saveToken', slackId, user, token);
+        // console.log('saveToken', slackId, user, token);
         return database.save({user, token}, slackId);
     }
 
@@ -75,10 +75,15 @@ module.exports = () => {
         const nextEvent = eventList[0];
         let isAvailable = true;
         let nextDateTime = nextEvent.start.dateTime;
+        const nextDate = nextEvent.start.date;
 
-        if ((new Date(nextEvent.start.dateTime) <= new Date()) && nextEvent.status === 'confirmed') {
+        if (nextDateTime && (new Date(nextDateTime) <= new Date()) && nextEvent.status === 'confirmed') {
             isAvailable = false;
             nextDateTime = nextEvent.end.dateTime;
+        }
+        if (nextDate && (new Date(nextDate) <= new Date()) && nextEvent.status === 'confirmed') {
+            isAvailable = false;
+            nextDateTime = nextEvent.end.date;
         }
         return {isAvailable, nextDateTime};
     }

@@ -33,7 +33,7 @@ module.exports = (googleApi, config) => {
     googleCalendarRouter.get('/ping/:slackId', (req, res) => {
         googleApi.auth.getToken(req.params.slackId)
         .then(userToken => {
-            console.log('ping', req.params.slackId, userToken);
+            // console.log('ping', req.params.slackId, userToken);
             req.client.credentials = userToken.token;
             googleApi.calendar.ping(req.client)
             .then(ping => {
