@@ -5,7 +5,7 @@ const Regex = require('regex');
 const database = require('./database')();
 
 module.exports = () => {
-    function isTextValid(text) {
+    function isValid(text) {
         const validRegex = new Regex(/\A@[\S]*\z/);
         return validRegex.test(text);
     }
@@ -43,7 +43,7 @@ module.exports = () => {
     }
 
     return {
-        isTextValid,
+        isValid,
         getSlackId,
         hasAuthorized,
         exchangeCodeForToken
