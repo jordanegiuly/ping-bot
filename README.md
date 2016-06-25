@@ -35,3 +35,4 @@ Libs:
     - if not return link to authorize
 - Nice to have:
     - directily return token to user
+- ask user to authorize
