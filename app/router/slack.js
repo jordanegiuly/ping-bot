@@ -25,11 +25,14 @@ module.exports = (slackApi, config) => {
                 slackApi.hasAuthorized(slackId)
                 .then(hasAuthorized => {
                     if (hasAuthorized) {
-                        request.get('/googlecalendar/ping/' + slackId)
-                        .then(response => {
-                            console.log(response.body);
+                        request.get('googlecalendar/ping/' + slackId, (err, _res, body) => {
+                            if (err) {
+                                console.log(err);
+                                res.status(500).send(err);
+                            }
+                            console.log(body);
                             res.status(200).json({
-                                text: response
+                                text: body
                             });
                         });
                     } else {
