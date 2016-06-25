@@ -23,11 +23,15 @@ module.exports = (googleApi, config) => {
             return googleApi.auth.saveToken(userToken, slackId);
         })
         .then(userToken => {
-            res.redirect('/');
+            res.redirect('authorize/success');
         })
         .catch(err => {
             console.log(err);
         });
+    });
+
+    googleCalendarRouter.get('/authorize/success', (req, res) => {
+        res.send('Thanks for authorizing Ping Bot!');
     });
 
     googleCalendarRouter.get('/ping/:slackId', (req, res) => {

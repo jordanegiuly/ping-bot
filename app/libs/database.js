@@ -18,6 +18,7 @@ module.exports = () => {
         else {
             databases = {};
         }
+        console.log(_.keys(databases).length + ' teams loaded.');
     }
 
     function get(slackId) {
@@ -29,7 +30,7 @@ module.exports = () => {
     function save({user, token}, slackId) {
         return new Promise((resolve, reject) => {
             _.set(databases, slackId.split(':'), {user, token});
-            console.log('databases - save');
+            console.log('databases - new entry for', slackId);
             fs.writeFileSync(databaseName, JSON.stringify(databases, null, 4));
             resolve({user, token});
         });

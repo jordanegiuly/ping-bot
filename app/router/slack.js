@@ -1,14 +1,14 @@
 'use strict';
-const request = require('request');
 
 module.exports = (slackApi, config) => {
     const slackRouter = require('express').Router();
 
     slackRouter.get('/', (req, res) => {
         const code = req.query.code;
+        console.log(config);
         slackApi.exchangeCodeForToken(code, config.credentials)
         .then(token => {
-            res.status(200).send('OK');
+            res.status(200).send('Thanks for authorizing pingbot!');
         })
         .catch(err => {
             res.status(500).send('KO');
