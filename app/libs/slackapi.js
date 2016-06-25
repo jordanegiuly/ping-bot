@@ -1,13 +1,12 @@
 'use strict';
 
 const request = require('request');
-const Regex = require('regex');
 const database = require('./database')();
 
 module.exports = () => {
     function isValid(text) {
-        const validRegex = new Regex(/\A@[\S]*\z/);
-        return validRegex.test(text);
+        const reg = /^@[\S]*$/g;
+        return !!text.match(reg);
     }
 
     function exchangeCodeForToken(code, credentials) {

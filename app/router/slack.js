@@ -17,7 +17,7 @@ module.exports = (slackApi, config) => {
 
     slackRouter.post('/ping', (req, res) => {
         const body = req.body;
-        // console.log('body', body);
+        console.log('slack/ping', body);
         if (body.token === process.env.SLACK_TOKEN) { // TODO: promise + new errors
             const teamId = body.team_id;
             const userToPing = body.text;

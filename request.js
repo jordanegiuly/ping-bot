@@ -7,9 +7,17 @@ const request = require('request');
 // });
 
 
-const database = require('./app/libs/database.js')();
-console.log(database);
-database.save({}, 'team:me')
-.then(data => {
-    console.log('data', data);
-})
+// const database = require('./app/libs/database.js')();
+// console.log(database);
+// database.save({}, 'team:me')
+// .then(data => {
+//     console.log('data', data);
+// })
+
+const reg = /^@[\S]*$/g;
+const str = '@jordane';
+console.log(!!str.match(reg));
+
+// const slackApi = require('./app/libs/slackapi.js')();
+
+// console.log(slackApi.isValid('@jordane'));

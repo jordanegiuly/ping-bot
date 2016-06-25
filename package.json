@@ -34,8 +34,7 @@
     "googleapis": "^6.1.0",
     "lodash": "^4.12.0",
     "nodemon": "^1.9.2",
-    "pg": "^4.5.5",
-    "regex": "^0.1.1"
+    "pg": "^4.5.5"
   },
   "devDependencies": {
     "eslint": "^2.9.0",
