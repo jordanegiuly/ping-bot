@@ -47,7 +47,7 @@ module.exports = () => {
     }
 
     function getToken(slackId) {
-        return database.getToken(slackId);
+        return database.get(slackId);
     }
 
     function ping(client) {
